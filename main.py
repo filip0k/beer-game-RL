@@ -1,7 +1,11 @@
-import gym
-from gym_env.envs import BeerGame
-from ray import tune
+import ray
+from multiagent_env.envs import MultiAgentBeerGame
+from ray.rllib.agents.pg import PGTrainer
 from ray.rllib.agents.ppo import PPOTrainer
 
-gym.make('beer-game-v0')
-# tune.run(PPOTrainer, config={"env": BeerGame})
+ray.init()
+trainer = PPOTrainer(env=MultiAgentBeerGame, config={
+    "env_config": {},
+    "num_workers": 0
+})
+trainer.train()
