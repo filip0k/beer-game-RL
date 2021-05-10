@@ -21,6 +21,7 @@ def create_env(config):
 
 env_config = {
     "n_agents": N_AGENTS,
+    "n_iterations": 1000,
     "observations_to_track": OBSERVATIONS_TO_TRACK
 }
 env = create_env(env_config)
@@ -33,13 +34,17 @@ policies = {str(agent.name): (None, obs_space, action_space, {}) for agent in en
 
 ray.init()
 trainer = PPOTrainer(env="mabeer-game", config={
-    "num_workers": 0,
-    "env_config":env_config,
+    "model": {"use_lstm": True},
+    "num_sgd_iter": 100,
+    "sgd_minibatch_size": 250,
+    "num_workers": 12,
+    "env_config": env_config,
     "multiagent": {
         "policies": policies,
         "policy_mapping_fn": (lambda agent_id: agent_id),
     },
 })
 
-result = trainer.train()
-print(pretty_print(result))
+for i in range(10):
+    result = trainer.train()
+    print(pretty_print(result))
