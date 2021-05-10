@@ -29,15 +29,15 @@ register_env("mabeer-game", create_env)
 
 obs_space = Box(low=0, high=np.finfo(np.float32).max, shape=(OBSERVATIONS_TO_TRACK * Agent.N_OBSERVATIONS,),
                 dtype=np.float32)
-action_space = Box(low=0, high=np.finfo(np.float32).max, shape=(1,), dtype=np.float32)
+action_space = Box(low=0, high=100000, shape=(1,), dtype=np.float32)
 policies = {str(agent.name): (None, obs_space, action_space, {}) for agent in env.agents}
 
 ray.init()
 trainer = PPOTrainer(env="mabeer-game", config={
-    "model": {"use_lstm": True},
+    # "model": {"use_lstm": True}
     "num_sgd_iter": 100,
     "sgd_minibatch_size": 250,
-    "num_workers": 12,
+    "num_workers": 0,
     "env_config": env_config,
     "multiagent": {
         "policies": policies,
