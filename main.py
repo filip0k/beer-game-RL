@@ -4,8 +4,8 @@ from ray import tune
 from ray.tune import register_env
 
 
-def create_env(args):
-    return MultiAgentBeerGame(None)
+def create_env(args={}):
+    return MultiAgentBeerGame(args)
 
 
 env = create_env(None)
@@ -21,7 +21,7 @@ analysis = tune.run("PPO",
                     checkpoint_at_end=True,
                     config={"env": MultiAgentBeerGame,
                             "env_config": {},
-                            "num_workers": 0,
+                            "num_workers": 1,
                             # "multiagent": {
                             #     "policies": policies,
                             #     "policy_mapping_fn": (lambda agent_id: agent_id)
