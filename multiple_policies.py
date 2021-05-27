@@ -50,11 +50,3 @@ trainer = ImpalaTrainer(env="mabeer-game", config={
 for i in range(100):
     result = trainer.train()
     print(pretty_print(result))
-
-## maknuti backlog, samo ga racunati u reward, pass as parameter (+ zasicenje za backlog (backlog ne raste nakon thresholda))
-## svi uce nad istim policyjem
-## ppotrainer freeze network for n-th agent --> policies_to_train??
-
-##maybe this
-# Optional whitelist of policies to train, or None for all policies.
-# "policies_to_train": None,

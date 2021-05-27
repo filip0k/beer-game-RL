@@ -5,7 +5,7 @@ import ray
 from gym.spaces import Box
 from gym_env.envs.agent import Agent
 from multiagent_env.envs import MultiAgentBeerGame
-from ray.rllib.agents.ppo import PPOTrainer
+from ray.rllib.agents.ppo import PPOTrainer, PPOTFPolicy
 from ray.tune import register_env
 from ray.tune.logger import pretty_print
 from heuristic_policy import HeuristicPolicy
@@ -34,7 +34,7 @@ obs_space = Box(low=0, high=np.finfo(np.float32).max, shape=(OBSERVATIONS_TO_TRA
                 dtype=np.float32)
 action_space = Box(low=0, high=1000, shape=(1,), dtype=np.float32)
 policies = {str(agent.name): (HeuristicPolicy, obs_space, action_space, {}) for agent in env.agents}
-policies[str(env.agents[0].name)] = (None, obs_space, action_space, {})
+policies[str(env.agents[0].name)] = (PPOTFPolicy, obs_space, action_space, {})
 
 env_config = {
     "n_agents": N_AGENTS,
@@ -56,7 +56,7 @@ trainer = PPOTrainer(env="mabeer-game", config={
         "policies": policies,
         "policy_mapping_fn": (lambda agent_id: agent_id),
         "policies_to_train": ['0']
-    },
+    }
 })
 
 for i in range(1000):
