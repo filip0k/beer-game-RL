@@ -18,7 +18,7 @@ class HeuristicPolicy(Policy):
                         info_batch=None,
                         episodes=None,
                         **kwargs):
-        return np.array([np.minimum(obs_batch[0][2], 10000)]), state_batches, {}
+        return np.array([np.minimum(np.maximum(0, 8 + obs_batch[0][22] - obs_batch[0][20]), 10)]), state_batches, {}
 
     def get_weights(self):
         return {"w": self.w}

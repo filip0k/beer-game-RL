@@ -13,8 +13,8 @@ from heuristic_policy import HeuristicPolicy
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 N_AGENTS = 4
-OBSERVATIONS_TO_TRACK = 4
-N_ITERATIONS = 5000
+OBSERVATIONS_TO_TRACK = 5
+N_ITERATIONS = 64
 
 
 def create_env(config):
@@ -30,11 +30,12 @@ env_config = {
 }
 env = create_env(env_config)
 register_env("mabeer-game", create_env)
-obs_space = Box(low=0, high=np.finfo(np.float32).max, shape=(OBSERVATIONS_TO_TRACK * Agent.N_OBSERVATIONS,),
+obs_space = Box(low=np.finfo(np.float32).min, high=np.finfo(np.float32).max,
+                shape=(OBSERVATIONS_TO_TRACK * Agent.N_OBSERVATIONS,),
                 dtype=np.float32)
-action_space = Box(low=0, high=1000, shape=(1,), dtype=np.float32)
+action_space = Box(low=-8, high=8, shape=(1,), dtype=np.float32)
 policies = {str(agent.name): (HeuristicPolicy, obs_space, action_space, {}) for agent in env.agents}
-policies[str(env.agents[0].name)] = (PPOTFPolicy, obs_space, action_space, {})
+policies[str(env.agents[0].name)] = (None, obs_space, action_space, {})
 
 env_config = {
     "n_agents": N_AGENTS,
@@ -52,16 +53,22 @@ ray.init()
 trainer = PPOTrainer(env="mabeer-game", config={
     "num_workers": 0,
     "env_config": env_config,
+    "sgd_minibatch_size": 128,
+    "num_sgd_iter": 6,
+    "model": {
+        "fcnet_hiddens": [32]
+    },
     "multiagent": {
         "policies": policies,
         "policy_mapping_fn": (lambda agent_id: agent_id),
         "policies_to_train": ['0']
     }
 })
+trainer.get_policy('0').model.base_model.summary()
 
 for i in range(1000):
     result = trainer.train()
-    if i % 50 == 0:
+    if i % 5 == 0:
         print(pretty_print(result))
         trainer.save_checkpoint('checkpoints2')
 
