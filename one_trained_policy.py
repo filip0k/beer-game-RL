@@ -13,7 +13,7 @@ from heuristic_policy import HeuristicPolicy
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 N_AGENTS = 4
-OBSERVATIONS_TO_TRACK = 5
+OBSERVATIONS_TO_TRACK = 10
 N_ITERATIONS = 64
 
 
@@ -53,10 +53,8 @@ ray.init()
 trainer = PPOTrainer(env="mabeer-game", config={
     "num_workers": 0,
     "env_config": env_config,
-    "sgd_minibatch_size": 128,
-    "num_sgd_iter": 6,
     "model": {
-        "fcnet_hiddens": [32]
+        "fcnet_hiddens": [180, 130, 61]
     },
     "multiagent": {
         "policies": policies,
