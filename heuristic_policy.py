@@ -20,7 +20,7 @@ class HeuristicPolicy(Policy):
                         episodes=None,
                         **kwargs):
         ## base_stock - (stock-backlog)
-        return np.array([8 - (obs_batch[0][-5] - obs_batch[0][-4])]), state_batches, {}
+        return np.array(np.maximum(0, [8 - (obs_batch[0][-5] - obs_batch[0][-4])])), state_batches, {}
 
     def get_weights(self):
         return {"w": self.w}
