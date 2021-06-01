@@ -5,16 +5,17 @@ import ray
 from gym.spaces import Box
 from gym_env.envs.agent import Agent
 from multiagent_env.envs import MultiAgentBeerGame
-from ray.rllib.agents.ppo import PPOTrainer, PPOTFPolicy
+from ray.rllib.agents.ppo import PPOTrainer
 from ray.tune import register_env
 from ray.tune.logger import pretty_print
+
 from heuristic_policy import HeuristicPolicy
 
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 N_AGENTS = 4
 OBSERVATIONS_TO_TRACK = 10
-N_ITERATIONS = 64
+N_ITERATIONS = 10000
 
 
 def create_env(config):

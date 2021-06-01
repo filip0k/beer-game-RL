@@ -7,6 +7,7 @@ class HeuristicPolicy(Policy):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.observations_size = 10
         self.exploration = self._create_exploration()
         self.w = 1
 
@@ -18,7 +19,8 @@ class HeuristicPolicy(Policy):
                         info_batch=None,
                         episodes=None,
                         **kwargs):
-        return np.array([np.minimum(np.maximum(0, 8 + obs_batch[0][22] - obs_batch[0][20]), 10)]), state_batches, {}
+        ## base_stock - (stock-backlog)
+        return np.array([8 - (obs_batch[0][-5] - obs_batch[0][-4])]), state_batches, {}
 
     def get_weights(self):
         return {"w": self.w}
