@@ -15,7 +15,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 N_AGENTS = 4
 OBSERVATIONS_TO_TRACK = 10
-N_ITERATIONS = 10000
+N_ITERATIONS = 1000
 
 
 def create_env(config):

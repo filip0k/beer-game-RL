@@ -20,7 +20,7 @@ class HeuristicPolicy(Policy):
                         episodes=None,
                         **kwargs):
         ## inventory - leftover_demand
-        return np.array([8 - (obs_batch[0][-5] - obs_batch[0][-1])]), state_batches, {}
+        return np.array([32 - (obs_batch[0][-5] - obs_batch[0][-1])]), state_batches, {}
 
     def get_weights(self):
         return {"w": self.w}
