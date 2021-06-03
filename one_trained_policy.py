@@ -35,7 +35,7 @@ obs_space = Box(low=np.finfo(np.float32).min, high=np.finfo(np.float32).max,
                 shape=(OBSERVATIONS_TO_TRACK * Agent.N_OBSERVATIONS,),
                 dtype=np.float32)
 action_space = Box(low=-8, high=8, shape=(1,), dtype=np.float32)
-heuristic_action_space = Box(low=0, high=15, shape=(1,), dtype=np.float32)
+heuristic_action_space = Box(low=0, high=32, shape=(1,), dtype=np.float32)
 policies = {str(agent.name): (HeuristicPolicy, obs_space, heuristic_action_space, {}) for agent in env.agents}
 policies[str(env.agents[0].name)] = (None, obs_space, action_space, {})
 
