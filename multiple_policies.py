@@ -67,19 +67,19 @@ def train():
     ray.init()
     trainer = init_trainer()
     trainer.get_policy('0').model.base_model.summary()
-    trainer.load_checkpoint('policy0_2_retrain/checkpoint-1')
+    #trainer.load_checkpoint('policy0_2_retrain/checkpoint-1')
     for i in range(1000):
         result = trainer.train()
         if i % 5 == 0:
             print(pretty_print(result))
-            trainer.save_checkpoint('test')
+            #trainer.save_checkpoint('test')
     ray.shutdown()
 
 
 def test():
     ray.init()
     trainer = init_trainer()
-    trainer.load_checkpoint('policy0_2_retrain2/checkpoint-6')
+    #trainer.load_checkpoint('policy0_2_retrain2/checkpoint-6')
 
     actions = {}
     for k in range(0, 10):

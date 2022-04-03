@@ -69,19 +69,19 @@ hp8 = HeuristicPolicy(obs_space, heuristic_action_space, {"base_stock": 8})
 def train():
     ray.init()
     trainer = init_trainer()
-    trainer.load_checkpoint('checkpoints9/checkpoint-996')
+    #trainer.load_checkpoint('checkpoints9/checkpoint-996')
     for i in range(1000):
         result = trainer.train()
         if i % 5 == 0:
             print(pretty_print(result))
-            trainer.save_checkpoint('diff_action')
+            #trainer.save_checkpoint('diff_action')
     ray.shutdown()
 
 
 def test():
     ray.init()
     trainer = init_trainer()
-    trainer.load_checkpoint('checkpoints9/checkpoint-996')
+    #trainer.load_checkpoint('checkpoints9/checkpoint-996')
 
     actions = {}
     for i in range(0, 100):
