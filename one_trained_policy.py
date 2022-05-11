@@ -17,7 +17,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 N_AGENTS = 4
 OBSERVATIONS_TO_TRACK = 10
-N_ITERATIONS = 1000
+N_ITERATIONS = 100
 
 
 def custom_log_creator(custom_path):
@@ -98,10 +98,10 @@ def test():
                     actions[str(i)] = hp8.compute_actions(obs_batch=[obs['3']])[0]
             obs, reward, done, info = env.step(actions)
             actions = {}
-    print(env.r0 / 100000)
-    print(env.r1 / 100000)
-    print(env.r2 / 100000)
-    print(env.r3 / 100000)
+    print(env.r0 / 10000)
+    print(env.r1 / 10000)
+    print(env.r2 / 10000)
+    print(env.r3 / 10000)
     ray.shutdown()
 
 

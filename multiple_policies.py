@@ -17,7 +17,7 @@ os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 N_AGENTS = 4
 OBSERVATIONS_TO_TRACK = 10
-N_ITERATIONS = 1000
+N_ITERATIONS = 100
 
 
 def custom_log_creator(custom_path):
@@ -98,10 +98,10 @@ def test():
                         actions['3'] = hp8.compute_actions(obs_batch=[obs['3']])[0]
                 obs, reward, done, info = env.step(actions)
                 actions = {}
-        print(env.r0 / 10000)
-        print(env.r1 / 10000)
-        print(env.r2 / 10000)
-        print(env.r3 / 10000)
+        print(env.r0 / 1000)
+        print(env.r1 / 1000)
+        print(env.r2 / 1000)
+        print(env.r3 / 1000)
 
 
 def eval_fn(trainer, eval_workers):
@@ -121,10 +121,10 @@ def eval_fn(trainer, eval_workers):
                     actions['3'] = hp8.compute_actions(obs_batch=[obs['3']])[0]
             obs, reward, done, info = env.step(actions)
             actions = {}
-    print(env.r0 / 10000)
-    print(env.r1 / 10000)
-    print(env.r2 / 10000)
-    print(env.r3 / 10000)
+    print(env.rewards['0'] / 1000)
+    print(env.rewards['1'] / 1000)
+    print(env.rewards['2'] / 1000)
+    print(env.rewards['3'] / 1000)
     episodes, _ = collect_episodes(
         remote_workers=eval_workers.remote_workers(), timeout_seconds=99999)
     return summarize_episodes(episodes)
