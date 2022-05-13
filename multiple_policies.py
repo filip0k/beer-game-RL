@@ -72,7 +72,7 @@ def train():
         result = trainer.train()
         if i % 5 == 0:
             print(pretty_print(result))
-            #trainer.save_checkpoint('test')
+            trainer.save_checkpoint('test')
     ray.shutdown()
 
 
